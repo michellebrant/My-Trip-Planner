@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :events
   resources :hotels
   resources :flights
+   post '/ajaxcalls', to: 'ajaxcalls#index'
 
     devise_for :users, controllers: { registrations: "registrations"}
 
