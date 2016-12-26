@@ -196,7 +196,7 @@ appendResultsAttraction = function(data){
 
 appendAllInfoFlights = function(data){
     for(i=0;i<10;i++){
-  resultDiv = $('<div class="col-md-3 col-md-offset-2 opaque2 whtTxt"></div>')
+    resultDiv = $('<div class="col-md-3 col-md-offset-2 opaque2 whtTxt"></div>')
     results = $('<ul class="list-unstyled"></ul>');
 
     inboundprice = data.results[i].fare.total_price
@@ -285,7 +285,9 @@ $('#submit2').click(function(event) {
     $(".opaque").hide();
     $('#homeNav').hide();
     ORIGIN = $('#origin').val()
+    ORIGINNEW = ORIGIN[0] + ORIGIN[1] + ORIGIN[2]
     DESTINATION = $('#destination').val()
+    DESTINATIONNEW = DESTINATION[0] + DESTINATION[1] + DESTINATION[2]
     RETURNDATE = $('#returndate').val()
     RETURNDATE2 = RETURNDATE.replace('/','-')
     RETURNDATE3 = RETURNDATE2.replace('/','-')
@@ -324,8 +326,8 @@ getAllInfoHotel = function(data) {
 
 getAllInfoFlights = function(data) {
     $.ajax({
-            url: "http://api.sandbox.amadeus.com//v1.2/flights/low-fare-search?apikey=qzex7QQAbrN1YS9N7nDo2TQDlENnACs8&origin="+ORIGIN+
-            "&destination="+DESTINATION+"&departure_date="+DATE4+"&return_date="+RETURNDATE4+
+            url: "http://api.sandbox.amadeus.com//v1.2/flights/low-fare-search?apikey=qzex7QQAbrN1YS9N7nDo2TQDlENnACs8&origin="+ORIGINNEW+
+            "&destination="+DESTINATIONNEW+"&departure_date="+DATE4+"&return_date="+RETURNDATE4+
             "&adults="+ADULTS+"&children="+CHILDREN+"&nonstop=false&max_price="+MAXPRICE+"&one-way=false&number_of_results=10",
             method: 'GET'
         })
@@ -334,9 +336,19 @@ getAllInfoFlights = function(data) {
 
 
         })
+        .fail(function(data){
+          appendError(data)
+        })
 }
 
-
+appendError = function(data){
+   resultDiv = $('<div></div>')
+   result = $('<p></p>')
+   result.text('Error! try again.')
+   resultDiv.append(result)
+   $('body').append(resultDiv)
+   console.log(data.message)
+}
 
 
 $('#submit3').click(function(event) {
