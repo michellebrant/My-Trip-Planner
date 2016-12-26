@@ -342,12 +342,13 @@ getAllInfoFlights = function(data) {
 }
 
 appendError = function(data){
-   resultDiv = $('<div></div>')
-   result = $('<p></p>')
-   result.text('Error! try again.')
+   resultDiv = $('<div class="errordiv"></div>')
+   result = $('<p class="error"></p>')
+   error = (data.responseJSON.message)
+   result.text('Something went wrong! '+ error + ' Please go back to fix this and try again.')
    resultDiv.append(result)
    $('body').append(resultDiv)
-   console.log(data.message)
+
 }
 
 
