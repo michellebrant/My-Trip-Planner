@@ -38,6 +38,18 @@
 
      <% end %>
 
+    <h3>Attractions to visit</h3>
+     <% @subAttraction = @attraction.where(trip_id: trip['id']) %>
+    <% @subAttraction.each do |attraction| %>
+    <p>Name is <%=attraction['name']  %></p>
+    <p>Address is <%=attraction['address']  %></p>
+    <p>Full review: <%=attraction['restaurant_url']  %></p>
+    <p>Your comments: <%=attraction['description']  %></p>
+
+      <%= button_to 'Delete me', attraction, method: :delete %><br>
+
+     <% end %>
+
     <h3>Hotels</h3>
      <% @subHotel = @hotel.where(trip_id: trip['id']) %>
     <% @subHotel.each do |hotel| %>

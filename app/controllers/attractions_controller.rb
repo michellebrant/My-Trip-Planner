@@ -30,6 +30,10 @@ class AttractionsController < ApplicationController
                 redirect_to "/trips"
   end
 
+  def destroy
+    Attraction.destroy(params[:id])
+    redirect_to "/trips/show"
+  end
 
 end
 

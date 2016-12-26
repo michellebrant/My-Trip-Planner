@@ -12,7 +12,9 @@ def show
   @flights = Flight.all
   @restaurant = Restaurant.all
   @hotel = Hotel.all
+  @attraction = Attraction.all
 end
+
 
   def create
 
