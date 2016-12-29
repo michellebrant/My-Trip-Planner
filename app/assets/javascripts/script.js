@@ -273,12 +273,13 @@ appendResultsAttraction = function(data){
 
 appendAllInfoFlights = function(data){
     for(i=0;i<10;i++){
-    resultDiv = $('<div class="col-md-3 col-md-offset-2 opaque2 whtTxt"></div>')
-    results = $('<ul class="list-unstyled"></ul>');
-
+    resultDiv = $('<div class="col-md-3 col-md-offset-2 opaque2 whtTxt"></div>');
+    results = $('<ul></ul>');
     inboundprice = data.results[i].fare.total_price
     inboundarrive = data.results[i].itineraries[0].inbound.flights[0].arrives_at
+    inboundarrive = inboundarrive.replace('T', ' ')
     inbounddeparts = data.results[i].itineraries[0].inbound.flights[0].departs_at
+    inbounddeparts = inbounddeparts.replace('T', ' ')
     inboundclass = data.results[i].itineraries[0].inbound.flights[0].booking_info.travel_class
     inboundseats = data.results[i].itineraries[0].inbound.flights[0].booking_info.seats_remaining
     inbounddestinationairport = data.results[i].itineraries[0].inbound.flights[0].destination.airport
@@ -286,9 +287,10 @@ appendAllInfoFlights = function(data){
     inboundoriginairport = data.results[i].itineraries[0].inbound.flights[0].origin.airport
     inboundairline =  data.results[i].itineraries[0].inbound.flights[0].marketing_airline
 
-    outboundprice = data.results[i].fare.total_price
     outboundarrive = data.results[i].itineraries[0].outbound.flights[0].arrives_at
+    outboundarrive = outboundarrive.replace('T', ' ')
     outbounddeparts = data.results[i].itineraries[0].outbound.flights[0].departs_at
+    outbounddeparts = outbounddeparts.replace('T', ' ')
     outboundclass = data.results[i].itineraries[0].outbound.flights[0].booking_info.travel_class
     outboundseats = data.results[i].itineraries[0].outbound.flights[0].booking_info.seats_remaining
     outbounddestinationairport = data.results[i].itineraries[0].outbound.flights[0].destination.airport
@@ -306,7 +308,7 @@ appendAllInfoFlights = function(data){
     inboundairlineParams = inboundairline.replace(/ /g, '')
 
 
-    outboundpriceParams = outboundprice.replace(/ /g, '')
+
     outboundarriveParams = outboundarrive.replace(/ /g, '')
     outbounddepartsParams = outbounddeparts.replace(/ /g, '')
     outboundclassParams = outboundclass.replace(/ /g, '')
@@ -324,7 +326,17 @@ appendAllInfoFlights = function(data){
     listURL.append(namelist)
 
     results.append(listURL)
- results.append('<li>' + 'Price: ' + inboundprice + '</li>')
+    results.append('<li>' + 'Round Trip Price: $' + inboundprice + '</li><br>')
+    results.append('<li>' + 'Outbound Flight Details: ' + '</li>')
+    results.append('<li>' + 'Departure : ' + outbounddeparts + '</li>')
+    results.append('<li>' + 'Arrival : ' + outboundarrive + '</li>')
+    results.append('<li>' + 'Class: ' + outboundclass + '</li>')
+    results.append('<li>' + 'Seats left on this flight: ' + outboundseats + '</li>')
+    results.append('<li>' + 'Origin Airport: ' + outboundoriginairport + '</li>')
+    results.append('<li>' + 'Desination Airport: ' + outbounddestinationairport + '</li>')
+    results.append('<li>' + 'Airline Designator: ' + outboundairline + '</li>')
+    results.append('<li>' + 'Flight Number: ' + outboundflightnumber + '</li><br>')
+    results.append('<li>' + 'Inbound Flight Details: ' + '</li>')
     results.append('<li>' +'Arrival: ' + inboundarrive + '</li>')
     results.append('<li>' + 'Departure: ' + inbounddeparts + '</li>')
     results.append('<li>' + 'Class: ' + inboundclass + '</li>')
@@ -333,15 +345,7 @@ appendAllInfoFlights = function(data){
     results.append('<li>' + 'Origin Airport: ' + inboundoriginairport  + '</li>')
     results.append('<li>' + 'Airline Designator: ' + inboundairline + '</li>')
     results.append('<li>' + 'Flight Number: ' + inboundflightnumber + '</li><br>')
-    results.append('<li>' + 'Price: ' + outboundprice + '</li>')
-    results.append('<li>' + 'Arrival : ' + outboundarrive + '</li>')
-    results.append('<li>' + 'Departure : ' + outbounddeparts + '</li>')
-    results.append('<li>' + 'Class: ' + outboundclass + '</li>')
-    results.append('<li>' + 'Seats: ' + outboundseats + '</li>')
-    results.append('<li>' + 'Desination Airport: ' + outbounddestinationairport + '</li>')
-    results.append('<li>' + 'Origin Airport: ' + outboundoriginairport + '</li>')
-    results.append('<li>' + 'Airline Designator: ' + outboundairline + '</li>')
-    results.append('<li>' + 'Flight Number: ' + outboundflightnumber + '</li>')
+
 
     resultDiv.append(results)
 
@@ -403,9 +407,9 @@ getAllInfoHotel = function(data) {
 
 getAllInfoFlights = function(data) {
     $.ajax({
-            url: "http://api.sandbox.amadeus.com//v1.2/flights/low-fare-search?apikey=qzex7QQAbrN1YS9N7nDo2TQDlENnACs8&origin="+ORIGINNEW+
+            url: "http://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=qzex7QQAbrN1YS9N7nDo2TQDlENnACs8&origin="+ORIGINNEW+
             "&destination="+DESTINATIONNEW+"&departure_date="+DATE4+"&return_date="+RETURNDATE4+
-            "&adults="+ADULTS+"&children="+CHILDREN+"&nonstop=false&max_price="+MAXPRICE+"&one-way=false&number_of_results=10",
+            "&adults="+ADULTS+"&children="+CHILDREN+"&nonstop=true&max_price="+MAXPRICE+"&one-way=false&number_of_results=10",
             method: 'GET'
         })
         .done(function(data) {
@@ -415,6 +419,7 @@ getAllInfoFlights = function(data) {
         })
         .fail(function(data){
           appendError(data)
+             console.log(URL)
         })
 }
 
