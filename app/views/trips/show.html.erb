@@ -1,44 +1,106 @@
-  <h1>Here are your trips</h1>
-  <% @trips.each do |trip|  %>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Trips</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<%= stylesheet_link_tag "yourtrips" %>
+<%= javascript_include_tag "bsscript" %>
+ <h1>Here are your trips</h1>
+
+
+
+<% @trips.each do |trip|  %>
 
     <h1><%= trip['trip_name']  %></h1>
+        <p>Location <%= trip['locations']  %></p>
      <%= button_to 'Delete the trip', trip, method: :delete %><br>
+<div class="container">
+<div class="row">
 
 
-    <h3>Flights</h3>
-
-    <% @subFlight = @flights.where(trip_id: trip['id']) %>
-    <% @subFlight.each do |flight| %>
-    <p>Price is <%=flight['price']  %></p>
-     <p>ID is <%=flight['id']  %></p>
-    <p>Departure time and date (from origin) <%=flight ['departuredate_time']  %></p>
-    <p>Arrival time and date (to destination) <%=flight ['arrivaldate_time']  %></p>
-    <p>Flight class (to destination) <%=flight ['flightclass']  %></p>
-    <p>Departure airport (from origin to destination)<%=flight ['departure_airport']  %></p>
-    <p>Arrival airport (from origin to destination)<%=flight ['arrival_airport']  %></p>
-    <p>Flight number (from origin to destination)<%=flight ['flight_number']  %></p>
-    <p>Airline (from origin to destination)<%=flight ['airline']  %></p>
-    <p>Departure time (from destination to origin)<%=flight ['returnairportdepart']  %></p>
-    <p>Arrival airport (from destination to origin)<%=flight ['returnairportarrive']  %></p>
-    <p>Arrival airline (from destination to origin)<%=flight ['airlinereturn']  %></p>
-    <p>Arrival flight number (from destination to origin)<%=flight ['flightnumberreturn']  %></p>
-      <%= button_to 'Delete me', flight, method: :delete %><br>
+<div class="col-md-3">
+  <div id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="card">
+      <div class="card-header" role="tab" id="headingOne">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+         Flight Info
+        </a>
+      </h5>
+    </div>
+    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
+      <div class="card-block">
+           <% @subFlight = @flights.where(trip_id: trip['id']) %>
+            <% @subFlight.each do |flight| %>
+            <p>Price is <%=flight['price']  %></p>
+            <p>ID is <%=flight['id']  %></p>
+            <p>Departure time and date (from origin) <%=flight ['departuredate_time']  %></p>
+            <p>Arrival time and date (to destination) <%=flight ['arrivaldate_time']  %></p>
+            <p>Flight class (to destination) <%=flight ['flightclass']  %></p>
+            <p>Departure airport (from origin to destination)<%=flight ['departure_airport']  %></p>
+            <p>Arrival airport (from origin to destination)<%=flight ['arrival_airport']  %></p>
+            <p>Flight number (from origin to destination)<%=flight ['flight_number']  %></p>
+            <p>Airline (from origin to destination)<%=flight ['airline']  %></p>
+            <p>Departure time (from destination to origin)<%=flight ['returnairportdepart']  %></p>
+            <p>Arrival airport (from destination to origin)<%=flight ['returnairportarrive']  %></p>
+            <p>Arrival airline (from destination to origin)<%=flight ['airlinereturn']  %></p>
+            <p>Arrival flight number (from destination to origin)<%=flight ['flightnumberreturn']  %></p>
+              <%= button_to 'Delete me', flight, method: :delete %><br>
 
     <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
 
-    <h3>Restaurants to visit</h3>
-     <% @subRest = @restaurant.where(trip_id: trip['id']) %>
-    <% @subRest.each do |rest| %>
-    <p>Name is <%=rest['name']  %></p>
-    <p>Address is <%=rest['address']  %></p>
-    <p>Full review: <%=rest['restaurant_url']  %></p>
-    <p>Your comments: <%=rest['description']  %></p>
 
-      <%= button_to 'Delete me', rest, method: :delete %><br>
 
+
+
+<div class="col-md-3">
+  <div id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="card">
+      <div class="card-header" role="tab" id="headingTwo">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+         Restaurants to Visit
+        </a>
+      </h5>
+    </div>
+    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
+      <div class="card-block">
+            <% @subRest = @restaurant.where(trip_id: trip['id']) %>
+            <% @subRest.each do |rest| %>
+            <p>Name is <%=rest['name']  %></p>
+            <p>Address is <%=rest['address']  %></p>
+            <p>Full review: <%=rest['restaurant_url']  %></p>
+            <p>Your comments: <%=rest['description']  %></p>
+            <%= button_to 'Delete me', rest, method: :delete %><br>
      <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <h3>Attractions to visit</h3>
+
+
+<div class="col-md-3">
+  <div id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="card">
+      <div class="card-header" role="tab" id="headingThree">
+      <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+         Attractions to See
+        </a>
+      </h5>
+    </div>
+    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
+      <div class="card-block">
      <% @subAttraction = @attraction.where(trip_id: trip['id']) %>
     <% @subAttraction.each do |attraction| %>
     <p>Name is <%=attraction['name']  %></p>
@@ -49,8 +111,24 @@
       <%= button_to 'Delete me', attraction, method: :delete %><br>
 
      <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <h3>Hotels</h3>
+<div class="col-md-3">
+  <div id="accordion" role="tablist" aria-multiselectable="true">
+     <div class="card">
+        <div class="card-header" role="tab" id="headingFour">
+        <h5 class="mb-0">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+         Hotels to Book
+        </a>
+      </h5>
+    </div>
+    <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
+    <div class="card-block">
      <% @subHotel = @hotel.where(trip_id: trip['id']) %>
     <% @subHotel.each do |hotel| %>
     <p>Name is <%=hotel['name']  %></p>
@@ -61,9 +139,22 @@
       <%= button_to 'Delete me', hotel, method: :delete %><br>
 
      <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <p>Location <%= trip['locations']  %></p>
-
+</div>
+</div>
 
      <% end %>
+
+
+
+</body>
+
+</html>
+
+
 
