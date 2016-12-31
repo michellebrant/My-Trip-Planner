@@ -1,10 +1,6 @@
 console.log("script loaded")
 
 
-$('#yoyo').click(function(event){
-console.log('hi')
-})
-
 $('#newbutton').click(function(event) {
   event.preventDefault();
 console.log('test')
@@ -390,7 +386,7 @@ $('#submit2').click(function(event) {
 getAllInfoHotel = function(data) {
     $.ajax({
             url: "https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=qzex7QQAbrN1YS9N7nDo2TQDlENnACs8&location="
-            +HOTELLOCATION+"&check_in="+HOTELCHECKINDATE+"&check_out="+HOTELCHECKOUTDATE+
+            +HOTELLOCATIONNEW+"&check_in="+HOTELCHECKINDATE+"&check_out="+HOTELCHECKOUTDATE+
             "&radius=50&lang=EN&currency=USD&max_rate="+MAXRATE+
             "&number_of_results=10&all_rooms=true&show_sold_out=false",
             method: 'GET'
@@ -440,6 +436,7 @@ $('#submit3').click(function(event) {
     $(".opaque").hide();
     $('#homeNav').hide();
     HOTELLOCATION = $('#hotellocation').val()
+    HOTELLOCATIONNEW = HOTELLOCATION[0] + HOTELLOCATION[1] + HOTELLOCATION[2]
     HOTELCHECKINDATE = $('#checkin').val()
     HOTELCHECKOUTDATE = $('#checkout').val()
     MAXRATE = $('#maxhotelrate').val()

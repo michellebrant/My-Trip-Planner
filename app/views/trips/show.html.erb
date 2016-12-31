@@ -2,38 +2,44 @@
 <html>
 <head>
   <title>Your Trips</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<%= stylesheet_link_tag "yourtrips" %>
 </head>
 <body>
-<%= stylesheet_link_tag "yourtrips" %>
-<%= javascript_include_tag "bsscript" %>
- <h1>Here are your trips</h1>
+<%= render 'shared/header' %>
+<div class="header">
+ <h1>See the trips you've planned today.</h1><br>
+ <h1>Go on an adventure tomorrow.</h1>
+
+
+</div>
+<div class="description">
+<p>See the trips you have planned below</p>
+<p>To create a new trip, <a href='/trips/new'> click here.</a></p>
+<p>To add flights, hotels, and more <a href='/trips'> click here.</a></p>
+</div>
+<hr>
+
 
 
 
 <% @trips.each do |trip|  %>
+<div class="tripname">
+    <h1 class="trip-name"><%= trip['trip_name']  %></h1>
+        <p>Location: <%= trip['locations']  %></p>
+     <%= button_to 'Delete This Trip', trip, method: :delete %><br>
+       </div>
+<div class="tripdetails">
+<p>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" id="<%= trip['trip_name']  %>" data-target="#collapse<%= trip['trip_name'][0]  %><%= trip['trip_name'][1]  %><%= trip['trip_name'][2]  %><%= trip['trip_name'][3]  %>" aria-expanded="false" aria-controls="<%= trip['trip_name']  %>">
+    Flight Info
+  </button>
+</p>
 
-    <h1><%= trip['trip_name']  %></h1>
-        <p>Location <%= trip['locations']  %></p>
-     <%= button_to 'Delete the trip', trip, method: :delete %><br>
-<div class="container">
-<div class="row">
-
-
-<div class="col-md-3">
-  <div id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="card">
-      <div class="card-header" role="tab" id="headingOne">
-      <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-         Flight Info
-        </a>
-      </h5>
-    </div>
-    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne">
-      <div class="card-block">
-           <% @subFlight = @flights.where(trip_id: trip['id']) %>
+<div class="collapse" id="collapse<%= trip['trip_name'][0]  %><%= trip['trip_name'][1]  %><%= trip['trip_name'][2]  %><%= trip['trip_name'][3]  %>" id="<%= trip['trip_name']  %>">
+  <div class="card card-block">
+      <% @subFlight = @flights.where(trip_id: trip['id']) %>
             <% @subFlight.each do |flight| %>
             <p>Price is <%=flight['price']  %></p>
             <p>ID is <%=flight['id']  %></p>
@@ -51,29 +57,19 @@
               <%= button_to 'Delete me', flight, method: :delete %><br>
 
     <% end %>
-      </div>
-    </div>
-  </div>
-</div>
+   </div>
 </div>
 
 
+<p>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" id="<%= trip['trip_name']  %>" data-target="#collapseOne<%= trip['trip_name'][0]  %><%= trip['trip_name'][1]  %><%= trip['trip_name'][2]  %><%= trip['trip_name'][3]  %>" aria-expanded="false" aria-controls="<%= trip['trip_name']  %>">
+    Restaurants to Visit
+  </button>
+</p>
 
-
-
-<div class="col-md-3">
-  <div id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="card">
-      <div class="card-header" role="tab" id="headingTwo">
-      <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-         Restaurants to Visit
-        </a>
-      </h5>
-    </div>
-    <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo">
-      <div class="card-block">
-            <% @subRest = @restaurant.where(trip_id: trip['id']) %>
+<div class="collapse" id="collapseOne<%= trip['trip_name'][0]  %><%= trip['trip_name'][1]  %><%= trip['trip_name'][2]  %><%= trip['trip_name'][3]  %>" id="<%= trip['trip_name']  %>">
+  <div class="card card-block">
+         <% @subRest = @restaurant.where(trip_id: trip['id']) %>
             <% @subRest.each do |rest| %>
             <p>Name is <%=rest['name']  %></p>
             <p>Address is <%=rest['address']  %></p>
@@ -81,27 +77,18 @@
             <p>Your comments: <%=rest['description']  %></p>
             <%= button_to 'Delete me', rest, method: :delete %><br>
      <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
+   </div>
 </div>
 
+<p>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" id="<%= trip['trip_name']  %>" data-target="#collapseTwo<%= trip['trip_name'][0]  %><%= trip['trip_name'][1]  %><%= trip['trip_name'][2]  %><%= trip['trip_name'][3]  %>" aria-expanded="false" aria-controls="<%= trip['trip_name']  %>">
+   Attractions to See
+  </button>
+</p>
 
-
-<div class="col-md-3">
-  <div id="accordion" role="tablist" aria-multiselectable="true">
-    <div class="card">
-      <div class="card-header" role="tab" id="headingThree">
-      <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-         Attractions to See
-        </a>
-      </h5>
-    </div>
-    <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree">
-      <div class="card-block">
-     <% @subAttraction = @attraction.where(trip_id: trip['id']) %>
+<div class="collapse" id="collapseTwo<%= trip['trip_name'][0]  %><%= trip['trip_name'][1]  %><%= trip['trip_name'][2]  %><%= trip['trip_name'][3]  %>" id="<%= trip['trip_name']  %>">
+  <div class="card card-block">
+      <% @subAttraction = @attraction.where(trip_id: trip['id']) %>
     <% @subAttraction.each do |attraction| %>
     <p>Name is <%=attraction['name']  %></p>
     <p>Address is <%=attraction['address']  %></p>
@@ -111,25 +98,19 @@
       <%= button_to 'Delete me', attraction, method: :delete %><br>
 
      <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
+</div>
 
-<div class="col-md-3">
-  <div id="accordion" role="tablist" aria-multiselectable="true">
-     <div class="card">
-        <div class="card-header" role="tab" id="headingFour">
-        <h5 class="mb-0">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-         Hotels to Book
-        </a>
-      </h5>
-    </div>
-    <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour">
-    <div class="card-block">
-     <% @subHotel = @hotel.where(trip_id: trip['id']) %>
+
+<p>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" id="<%= trip['trip_name']  %>" data-target="#collapseFour<%= trip['trip_name'][0]  %><%= trip['trip_name'][1]  %><%= trip['trip_name'][2]  %><%= trip['trip_name'][3]  %>" aria-expanded="false" aria-controls="<%= trip['trip_name']  %>">
+   Hotels to Book
+  </button>
+</p>
+
+<div class="collapse" id="collapseFour<%= trip['trip_name'][0]  %><%= trip['trip_name'][1]  %><%= trip['trip_name'][2]  %><%= trip['trip_name'][3]  %>" id="<%= trip['trip_name']  %>">
+  <div class="card card-block">
+      <% @subHotel = @hotel.where(trip_id: trip['id']) %>
     <% @subHotel.each do |hotel| %>
     <p>Name is <%=hotel['name']  %></p>
     <p>Address is <%=hotel['address']  %></p>
@@ -139,17 +120,11 @@
       <%= button_to 'Delete me', hotel, method: :delete %><br>
 
      <% end %>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
-
-</div>
-</div>
-
      <% end %>
 
+</div>
 
 
 </body>

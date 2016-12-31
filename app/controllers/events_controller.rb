@@ -1,4 +1,4 @@
-class EventsController < ApplicationControllerclass EventsController < ApplicationController
+class EventsController < ApplicationController
 
   def show
     id = params[:id]
@@ -41,4 +41,4 @@ class EventsController < ApplicationControllerclass EventsController < Applicati
 
 end
 
-end
+
