@@ -385,7 +385,7 @@ $('#submit2').click(function(event) {
 
 getAllInfoHotel = function(data) {
     $.ajax({
-            url: "https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=qzex7QQAbrN1YS9N7nDo2TQDlENnACs8&location="
+            url: "https://api.sandbox.amadeus.com/v1.2/hotels/search-airport?apikey=yiGlu8bzGm6W3gsdaDv1FGMac4O3ozY3&location="
             +HOTELLOCATIONNEW+"&check_in="+HOTELCHECKINDATE+"&check_out="+HOTELCHECKOUTDATE+
             "&radius=50&lang=EN&currency=USD&max_rate="+MAXRATE+
             "&number_of_results=10&all_rooms=true&show_sold_out=false",
@@ -403,7 +403,7 @@ getAllInfoHotel = function(data) {
 
 getAllInfoFlights = function(data) {
     $.ajax({
-            url: "http://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=qzex7QQAbrN1YS9N7nDo2TQDlENnACs8&origin="+ORIGINNEW+
+            url: "http://api.sandbox.amadeus.com/v1.2/flights/low-fare-search?apikey=yiGlu8bzGm6W3gsdaDv1FGMac4O3ozY3&origin="+ORIGINNEW+
             "&destination="+DESTINATIONNEW+"&departure_date="+DATE4+"&return_date="+RETURNDATE4+
             "&adults="+ADULTS+"&children="+CHILDREN+"&nonstop=true&max_price="+MAXPRICE+"&one-way=false&number_of_results=10",
             method: 'GET'
