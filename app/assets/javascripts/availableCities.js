@@ -98,5 +98,6 @@ var availableCities = [
       "HEL (Helsinki)",
       "LIS (Lisbon)",
       "ATH (Athens)",
-      "AKL (Aukland)"
+      "AKL (Aukland)",
+      "RDU (Raleigh)"
             ];

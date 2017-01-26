@@ -25,6 +25,7 @@ end
     @trip.user = current_user
     @trip.update(user_id: @trip.user[:id])
 
+    redirect_to '/trips/show'
   end
 
     def destroy
